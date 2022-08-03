@@ -27,10 +27,11 @@ export class AuthService {
     let api = this.apiUrl + 'Auth/CustomerLogin';
     let model: LoginModel = new LoginModel();
     model.email = loginForm.value.email;
-    model.password = loginForm.value.email;
+    model.password = loginForm.value.password;
 
     this.httpClient.post(api, model).subscribe(
-      (res) => {
+      (res: any) => {
+        localStorage.setItem('token', res.data.customerAccessToken);
         this.router.navigate(['/']);
       },
       (err) => {
