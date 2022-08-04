@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ErrorService } from 'src/app/services/error.service';
 import { LoginModel } from '../model/login-model';
 
@@ -12,7 +13,8 @@ export class AuthService {
     @Inject('apiUrl') private apiUrl: string,
     private httpClient: HttpClient,
     private router: Router,
-    private errorService: ErrorService
+    private errorService: ErrorService,
+    private toastrService: ToastrService
   ) {}
 
   isAuth(): boolean {
@@ -33,10 +35,16 @@ export class AuthService {
       (res: any) => {
         localStorage.setItem('token', res.data.customerAccessToken);
         this.router.navigate(['/']);
+        this.toastrService.success('Giriş Başarılı');
       },
       (err) => {
         this.errorService.errorHandler(err);
       }
     );
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.toastrService.info('Çıkış Başarılı');
   }
 }
