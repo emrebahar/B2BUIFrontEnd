@@ -11,7 +11,7 @@ export class ProductService {
   ) {}
 
   getList(customerId: number) {
-    let api = this.apiUrl + 'Products/GetProductList' + customerId;
+    let api = this.apiUrl + 'Products/GetProductList/' + customerId;
     return this.httpClient.get(api);
   }
 }

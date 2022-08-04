@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ErrorService } from 'src/app/services/error.service';
+import { DecodeService } from '../login/service/decode.service';
 import { ProductModel } from './model/product-model';
 import { ProductService } from './service/product.service';
 
@@ -13,11 +14,17 @@ export class HomeComponent implements OnInit {
   customerId: number = 0;
   constructor(
     private productService: ProductService,
-    private errorService: ErrorService
+    private errorService: ErrorService,
+    private decodeService: DecodeService
   ) {}
 
   ngOnInit(): void {
     this.getList();
+    this.getCustomerId();
+  }
+
+  getCustomerId() {
+    this.customerId = this.decodeService.getCustomerId();
   }
 
   getList() {
