@@ -33,7 +33,13 @@
                 "
               ></td>
               <td>
-                <button class="btn btn-danger" [swal]="deleteSwal">Sil</button>
+                <button
+                  class="btn btn-danger"
+                  [swal]="deleteSwal"
+                  (confirm)="delete(basket)"
+                >
+                  Sil
+                </button>
               </td>
             </tr>
           </tbody>
@@ -44,12 +50,30 @@
         <div class="text-center">
           <h4>Toplam Tutar:</h4>
           <p [innerText]="total | currency: 'TRY':'symbol-narrow':'1.2-2'"></p>
+          <button
+            *ngIf="baskets.length > 0"
+            class="btn btn-primary btn-block"
+            [swal]="createSwal"
+            (confirm)="createOrder()"
+          >
+            Sipariş Oluştur
+          </button>
         </div>
       </div>
     </div>
   </div>
   <!--/.container-->
 </section>
+
+<swal
+  #createSwal
+  title="Sipariş Oluştur?"
+  text="Sipariş oluşturmak istiyor musunuz?"
+  type="question"
+  [showCancelButton]="true"
+  [focusCancel]="true"
+  [swalOptions]="{ confirmButtonText: 'Oluştur', cancelButtonText: 'Vazgeç' }"
+></swal>
 
 <swal
   #deleteSwal

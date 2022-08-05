@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ErrorService } from 'src/app/services/error.service';
 import { DecodeService } from '../login/service/decode.service';
+import { OrderService } from '../order/service/order.service';
 import { BasketModel } from './model/basket-model';
 import { BasketService } from './service/basket.service';
 
@@ -21,7 +22,8 @@ export class BasketComponent implements OnInit {
     private basketService: BasketService,
     private errorSevice: ErrorService,
     private toastrService: ToastrService,
-    private decodeService: DecodeService
+    private decodeService: DecodeService,
+    private orderService: OrderService
   ) {}
 
   ngOnInit(): void {
@@ -44,10 +46,34 @@ export class BasketComponent implements OnInit {
       }
     );
   }
+
+  delete(basket: BasketModel) {
+    this.basketService.delete(basket).subscribe(
+      (res) => {
+        this.toastrService.success('Sipariş Silindi.');
+        this.getList();
+      },
+      (err) => {
+        this.errorSevice.errorHandler(err);
+      }
+    );
+  }
   setTotal() {
     this.total = 0;
     this.baskets.forEach((p) => {
       this.total = this.total + p.total;
     });
+  }
+
+  createOrder() {
+    this.orderService.add(this.customerId).subscribe(
+      (res) => {
+        this.toastrService.success('Sipariş başarıyla oluşturuldu.');
+        this.getList();
+      },
+      (err) => {
+        this.errorSevice.errorHandler(err);
+      }
+    );
   }
 }
