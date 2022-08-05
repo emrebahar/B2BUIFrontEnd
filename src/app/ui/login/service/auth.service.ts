@@ -45,6 +45,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
+    this.router.navigate(['/']);
     this.toastrService.info('Çıkış Başarılı');
   }
 }

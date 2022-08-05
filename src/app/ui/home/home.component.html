@@ -22,23 +22,33 @@
           <div class="single-new-arrival">
             <div class="single-new-arrival-bg">
               <img
-                src="assets/images/collection/arrivals1.png"
+                src="http://localhost:4200/assets/img/{{
+                  product.mainImageUrl
+                }}"
                 alt="new-arrivals images"
               />
               <div class="single-new-arrival-bg-overlay"></div>
             </div>
             <h4>
-              <a routerLink="detail/4" [innerText]="product.name"></a>
+              <a
+                routerLink="detail/{{ product.id }}"
+                [innerText]="product.name"
+              ></a>
             </h4>
             <p class="arrival-product-price text-danger">
-              <del [innerText]="product.price"></del>
+              <del
+                [innerText]="
+                  product.price | currency: 'TRY':'symbol-narrow':'1.2-2'
+                "
+              ></del>
             </p>
             <p
               class="arrival-product-price"
               [innerText]="
-                product.discount > 0
-                  ? product.price * (100 - product.discount)
-                  : 0
+                (product.discount > 0
+                  ? (product.price * (100 - product.discount)) / 100
+                  : product.price
+                ) | currency: 'TRY':'symbol-narrow':'1.2-2'
               "
             ></p>
           </div>

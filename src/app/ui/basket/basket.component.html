@@ -18,12 +18,20 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Koltuk Takımı</td>
-              <td>10</td>
-              <td>100</td>
-              <td>1000</td>
+            <tr *ngFor="let basket of baskets; let index = index">
+              <td [innerText]="index + 1"></td>
+              <td [innerText]="basket.productName"></td>
+              <td [innerText]="basket.quantity"></td>
+              <td
+                [innerText]="
+                  basket.price | currency: 'TRY':'symbol-narrow':'1.2-2'
+                "
+              ></td>
+              <td
+                [innerText]="
+                  basket.total | currency: 'TRY':'symbol-narrow':'1.2-2'
+                "
+              ></td>
               <td>
                 <button class="btn btn-danger" [swal]="deleteSwal">Sil</button>
               </td>
@@ -35,7 +43,7 @@
       <div class="form-group">
         <div class="text-center">
           <h4>Toplam Tutar:</h4>
-          1000
+          <p [innerText]="total | currency: 'TRY':'symbol-narrow':'1.2-2'"></p>
         </div>
       </div>
     </div>

@@ -9,11 +9,15 @@ export class DecodeService {
   constructor() {}
 
   getCustomerId(): number {
-    let decode = this.jwtHelper.decodeToken(localStorage.getItem('token'));
-    var customerId = Object.keys(decode).filter((p) =>
-      p.endsWith('/nameidentifier')
-    )[0];
-    return +decode[customerId];
+    try {
+      let decode = this.jwtHelper.decodeToken(localStorage.getItem('token'));
+      var customerId = Object.keys(decode).filter((p) =>
+        p.endsWith('/nameidentifier')
+      )[0];
+      return +decode[customerId];
+    } catch (error) {
+      return 0;
+    }
   }
   getCustomerName(): string {
     let decode = this.jwtHelper.decodeToken(localStorage.getItem('token'));

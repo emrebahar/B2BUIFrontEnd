@@ -7,7 +7,8 @@ import { AppComponent } from './app.component';
 import { UiModule } from './ui/ui.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './ui/login/interceptor/auth.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +25,11 @@ import { HttpClientModule } from '@angular/common/http';
     {
       provide: 'apiUrl',
       useValue: 'https://localhost:7146/api/',
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
     },
   ],
   bootstrap: [AppComponent],
