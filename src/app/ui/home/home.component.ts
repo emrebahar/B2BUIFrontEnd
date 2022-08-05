@@ -12,6 +12,7 @@ import { ProductService } from './service/product.service';
 export class HomeComponent implements OnInit {
   products: ProductModel[] = [];
   customerId: number = 0;
+  filterText: string = '';
   constructor(
     private productService: ProductService,
     private errorService: ErrorService,
@@ -19,12 +20,12 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getList();
     this.getCustomerId();
   }
 
   getCustomerId() {
     this.customerId = this.decodeService.getCustomerId();
+    this.getList();
   }
 
   getList() {

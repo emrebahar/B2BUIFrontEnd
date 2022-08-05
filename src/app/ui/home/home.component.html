@@ -9,11 +9,16 @@
         type="text"
         class="form-control"
         placeholder="Aranacak kelimeyi yazın"
+        [(ngModel)]="filterText"
+        [ngModelOptions]="{ standalone: true }"
       />
     </div>
     <div class="new-arrivals-content">
       <div class="row">
-        <div class="col-md-3 col-sm-4" *ngFor="let product of products">
+        <div
+          class="col-md-3 col-sm-4"
+          *ngFor="let product of products | productPipe: filterText"
+        >
           <div class="single-new-arrival">
             <div class="single-new-arrival-bg">
               <img
