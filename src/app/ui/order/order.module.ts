@@ -5,28 +5,24 @@ import { RouterModule, Routes } from '@angular/router';
 import { OrderDetailModule } from './order-detail/order-detail.module';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { OrderPipe } from './pipe/order.pipe';
+import { FormsModule } from '@angular/forms';
 
-const routes: Routes= [
+const routes: Routes = [
   {
     path: '',
-    component: OrderComponent
-  }
-]
+    component: OrderComponent,
+  },
+];
 
 @NgModule({
-  declarations: [
-    OrderComponent,
-    OrderPipe
-  ],
+  declarations: [OrderComponent, OrderPipe],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
+    FormsModule,
     OrderDetailModule,
-    SweetAlert2Module.forChild()
+    SweetAlert2Module.forChild(),
   ],
-  exports: [
-    OrderComponent,
-    OrderDetailModule
-  ]
+  exports: [OrderComponent, OrderDetailModule],
 })
-export class OrderModule { }
+export class OrderModule {}
